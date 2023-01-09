@@ -13,6 +13,10 @@ app.use(express.json())
 app.use(userRouter)
 app.use(taskRouter)
 
+app.get('/', (req, res) => {
+	res.send('<h1>Homepage</h1>')
+})
+
 app.listen(PORT, () => {
 	console.log(`Server listening on port ${PORT}`)
 	console.log('Press Ctrl+C to quit.')
