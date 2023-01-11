@@ -14,12 +14,6 @@ const sendWelcomeEmail = (email, name) => {
 	}
 
 	sgMail.send(msg)
-	.then(() => {
-		console.log('Email sent')
-	})
-	.catch((error) => {
-		console.error(error)
-	})
 }
 
 const sendCancellationEmail = (email, name) => {
@@ -31,12 +25,6 @@ const sendCancellationEmail = (email, name) => {
 	}
 
 	sgMail.send(msg)
-	.then(() => {
-		console.log('Email sent!')
-	})
-	.catch((error) => {
-		console.error(error)
-	})
 }
 
 module.exports = {

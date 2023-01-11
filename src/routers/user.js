@@ -9,7 +9,7 @@ const router = new express.Router()
 
 router.post('/users', async (req, res) => {
 	const user = new User(req.body)
-	
+
 	try {
 		await user.save()
 		sendWelcomeEmail(user.email, user.name)
@@ -110,33 +110,33 @@ router.post('/users/logoutAll', authMiddleware, async (req, res) => {
 
 		await req.user.save()
 
-        res.send()
+		res.send()
 	} catch (err) {
 		res.status(500).send()
 	}
 })
 
-// router.get('/users/:id', async (req, res) => {
-// 	try {
-// 		let user = await User.findById(req.params.id)
+router.get('/users/:id', async (req, res) => {
+	try {
+		let user = await User.findById(req.params.id)
 
-// 		if (!user) {
-// 			res.status(404).json({ 'error': 'User not found' })
-// 		}
+		if (!user) {
+			res.status(404).json({ 'error': 'User not found' })
+		}
 
-// 		return res.json(user)
-// 	} catch (err) {
-// 		res.status(500).send()
-// 	}
-// })
+		return res.json(user)
+	} catch (err) {
+		res.status(500).send()
+	}
+})
 
 router.patch('/users/me', authMiddleware, async (req, res) => {
 	const updates = Object.keys(req.body)
 	const allowedUpdates = [
 		"email",
 		"password",
-        "name",
-        "age"
+		"name",
+		"age"
 	];
 
 	const isValidOperation = updates.every((field) => allowedUpdates.includes(field))
@@ -159,8 +159,8 @@ router.patch('/users/:id', authMiddleware, async (req, res) => {
 	const allowedUpdates = [
 		"email",
 		"password",
-        "name",
-        "age"
+		"name",
+		"age"
 	];
 
 	const isValidOperation = updates.every((field) => allowedUpdates.includes(field))
@@ -170,10 +170,6 @@ router.patch('/users/:id', authMiddleware, async (req, res) => {
 
 	try {
 		let user = await User.findById(req.params.id)
-		// let user = await User.findByIdAndUpdate(req.params.id, req.body, {
-		// 	new: true,
-		// 	runValidators: true
-		// })
 
 		if (!user) return res.status(404).json({ 'error': 'No user found.' })
 
@@ -198,18 +194,18 @@ router.delete('/users/me', authMiddleware, async (req, res) => {
 	}
 })
 
-// router.delete('/users/:id', authMiddleware, async (req, res) => {
-// 	try {
-// 		let user = await User.findById(req.params.id)
+router.delete('/users/:id', authMiddleware, async (req, res) => {
+	try {
+		let user = await User.findById(req.params.id)
 
-// 		if (!user) return res.status(404).json({ 'error': 'User not found' })
+		if (!user) return res.status(404).json({ 'error': 'User not found' })
 
-// 		await user.remove();
+		await user.remove();
 
-// 		res.json(user)
-// 	} catch (e) {
-// 		res.status(500).send()
-// 	}
-// })
+		res.json(user)
+	} catch (e) {
+		res.status(500).send()
+	}
+})
 
 module.exports = router
